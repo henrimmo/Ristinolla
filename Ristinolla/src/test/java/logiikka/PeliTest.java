@@ -75,7 +75,7 @@ public class PeliTest {
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(1, 0));
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(2, 0));
         
-        assertEquals(true, peli.voittajaTarkistus(2, 0));
+        assertEquals(true, peli.voittajaTarkistus());
     }
     
     @Test
@@ -91,7 +91,7 @@ public class PeliTest {
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(0, 1));
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(0, 2));
         
-        assertEquals(true, peli.voittajaTarkistus(0, 2));
+        assertEquals(true, peli.voittajaTarkistus());
     }
     
     @Test
@@ -107,7 +107,7 @@ public class PeliTest {
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(1, 1));
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(2, 2));
         
-        assertEquals(true, peli.voittajaTarkistus(2, 2));
+        assertEquals(true, peli.voittajaTarkistus());
     }
     
     @Test
@@ -123,7 +123,7 @@ public class PeliTest {
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(1, 1));
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(0, 2));
         
-        assertEquals(true, peli.voittajaTarkistus(2, 0));
+        assertEquals(true, peli.voittajaTarkistus());
     }
     
     

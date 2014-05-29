@@ -12,7 +12,7 @@ public class Peli {
     
     
     private Ruudukko ruudukko;
-    private boolean vuoro;
+    private Ruutu vuoro;
     
     public Peli(Ruudukko ruudukko) {
         this.ruudukko = ruudukko;
@@ -20,16 +20,16 @@ public class Peli {
     }
     
     public void aloitaPeli() {
-        vuoro = true;
+        vuoro = Ruutu.RISTI;
     }
     
     public void pelaaVuoro(int x, int y) {
         if(ruudukko.onkoTyhja(x, y)) {
-            if (vuoro == true) {
+            if (vuoro == Ruutu.RISTI) {
             ruudukko.asetaX(x,y);
             
             }
-            if(vuoro == false) {
+            if(vuoro == Ruutu.NOLLA) {
                 ruudukko.aseta0(x,y);
 
             }
@@ -39,12 +39,16 @@ public class Peli {
     }
     
     public void vaihdaVuoro() {
-        vuoro = !vuoro;
+        if(vuoro == Ruutu.NOLLA) {
+            vuoro= Ruutu.RISTI;
+        } else if(vuoro == Ruutu.RISTI) {
+            vuoro= Ruutu.NOLLA;
+        }
     }
     
-    public boolean tasaPeli(int x, int y) {
+    public boolean tasaPeliTarkistus() {
         if(ruudukko.onkoRuudukkoTaysi()) {
-            if(!voittajaTarkistus(x,y)) {
+            if(!voittajaTarkistus()) {
                 return true;
             }
         }
@@ -53,63 +57,26 @@ public class Peli {
     
     
     
-    public boolean voittajaTarkistus(int x, int y) {
-        if(tarkistaVaaka(x,y)) {
+    public boolean voittajaTarkistus() {
+        if(ruudukko.tarkistaVaaka()) {
             return true;
         }
-        if(tarkistaPysty(x,y)) {
+        if(ruudukko.tarkistaPysty()) {
             return true;
         }
-        if(tarkistaVino(x,y)) {
+        if(ruudukko.tarkistaVino()) {
             return true;
         }
         return false;
     }
     
-    public boolean tarkistaVaaka(int x, int y) {
-        int merkit = 0;
-        for(int i = 0; i < ruudukko.getPituus(); i++) {
-            for(int j = 0; j < ruudukko.getPituus(); j ++) {
-                if(ruudukko.getRuutu(i, j)==ruudukko.getRuutu(x, y)) {
-                    merkit ++;
-                }
-            }
-            if(merkit == 3) {
-                return true;
-            } else {
-                merkit = 0;
-            }
-        }
-        return false;
-    }
-    
-    public boolean tarkistaPysty(int x, int y) {
-        int merkit = 0;
-        for(int i = 0; i < ruudukko.getPituus(); i++) {
-            for(int j = 0; j < ruudukko.getPituus(); j ++) {
-                if(ruudukko.getRuutu(j, i)==ruudukko.getRuutu(x, y)) {
-                    merkit ++;
-                }
-            }
-            if(merkit == 3) {
-                return true;
-            } else {
-                merkit = 0;
-            }
-        }
-        return false;
-    }
-    
-    public boolean tarkistaVino(int x, int y) {
-        
-        if(ruudukko.getRuutu(0, 0) ==ruudukko.getRuutu(x, y) && ruudukko.getRuutu(1, 1) ==ruudukko.getRuutu(x, y) && ruudukko.getRuutu(2, 2) ==ruudukko.getRuutu(x, y)) {
+    public boolean loppuukoPeli() {
+        if(voittajaTarkistus() == true) {
             return true;
-        }
-        
-        if(ruudukko.getRuutu(2, 0) ==ruudukko.getRuutu(x, y) && ruudukko.getRuutu(1, 1) ==ruudukko.getRuutu(x, y) && ruudukko.getRuutu(2, 0) ==ruudukko.getRuutu(x, y)) {
+        } else if(tasaPeliTarkistus() == true) {
             return true;
+        } else {
+            return false;
         }
-        
-        return false;
     }
 }

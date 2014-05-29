@@ -40,6 +40,7 @@
         <instrumentation>
             <includes>
                 <include>logiikka/*.class</include>
+                <include>kayttoliittyma/*.class</include>
 
             </includes>
         </instrumentation>
@@ -53,10 +54,13 @@
     <configuration>
         <targetClasses>
             <param>logiikka.*</param>
+            <param>kayttoliittyma.*</param>
 
         </targetClasses>
         <targetTests>
             <param>logiikka.*</param>
+            <param>kayttoliittyma.*</param>
+
 
         </targetTests>
     </configuration>

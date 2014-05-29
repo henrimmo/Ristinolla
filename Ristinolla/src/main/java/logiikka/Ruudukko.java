@@ -77,6 +77,57 @@ public class Ruudukko {
         return true;
     }
     
+    public boolean tarkistaVaaka() {
+        int merkit = 0;
+        Ruutu ruutu = Ruutu.TYHJA;
+        for(int i = 0; i < getPituus(); i++) {
+            for(int j = 0; j < getPituus(); j ++) {
+                ruutu = ruudut[i][j];
+                if(getRuutu(i, j)==ruutu) {
+                    merkit ++;
+                }
+            }
+            if(merkit == 3) {
+                return true;
+            } else {
+                merkit = 0;
+            }
+        }
+        return false;
+    }
+    
+        public boolean tarkistaPysty() {
+        int merkit = 0;
+        Ruutu ruutu = Ruutu.TYHJA;
+        for(int i = 0; i < getPituus(); i++) {
+            for(int j = 0; j < getPituus(); j ++) {
+                ruutu = ruudut[i][j];
+                if(getRuutu(j, i)==ruutu) {
+                    merkit ++;
+                }
+            }
+            if(merkit == 3) {
+                return true;
+            } else {
+                merkit = 0;
+            }
+        }
+        return false;
+    }
+    
+    public boolean tarkistaVino() {
+        
+        if(getRuutu(0, 0) == getRuutu(1, 1) && getRuutu(2, 2) ==getRuutu(1, 1)) {
+            return true;
+        }
+        
+        if(getRuutu(2, 0) ==getRuutu(1, 1) && getRuutu(1, 1) == getRuutu(2, 0)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
 
     
 }
