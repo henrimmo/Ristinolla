@@ -25,3 +25,4 @@ Peli luokka, testejä & luokkakaavio
 Pientä viilailua, tekstikäyttöliittymän aloitus
 
 2h
+ 
