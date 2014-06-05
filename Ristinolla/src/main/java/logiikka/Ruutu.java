@@ -5,7 +5,8 @@
 package logiikka;
 
 /**
- *
+ *Pelilaudan ruutujen eri tilat.
+ * 
  * @author Henri
  */
 public enum Ruutu {

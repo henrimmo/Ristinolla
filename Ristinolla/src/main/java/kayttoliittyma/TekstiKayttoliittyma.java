@@ -54,51 +54,22 @@ public class TekstiKayttoliittyma {
     
     public void kysyKomento() {
         
-//        do { 
-//            System.out.println("Anna x-koordinaatti");
-//            String xSyote = lukija.nextLine();
-//            if(xSyote.isEmpty()) {
-//                break;
-//            }
-//            int xKoord;
-//            try {
-//                xKoord = Integer.parseInt(xSyote);
-//            } catch (NumberFormatException nfe) {
-//                System.out.println("Anna kunnollinen luku!");
-//                break;
-//            }
-//            
-//            System.out.println("Anna y-koordinaatti");
-//            String ySyote = lukija.nextLine();
-//            if(ySyote.isEmpty()) {
-//                break;
-//            }
-//            int yKoord;
-//            try {
-//                yKoord = Integer.parseInt(ySyote);
-//            } catch (NumberFormatException nfe) {
-//                System.out.println("Anna kunnollinen luku!");
-//                break;
-//            }
-//            
-//            peli.pelaaVuoro(xKoord, yKoord);
-//        }   while (jatkuu);
         
         int xKoord;
         int yKoord;
         
         do {
-            System.out.println("Anna x-koordinaatti");
+            System.out.println("Anna x-koordinaatti väliltä 1-3");
             xKoord = lukija.nextInt();
-        }while(!peli.syoteOikein(xKoord));
+        }while(!peli.syoteOikein(xKoord -1));
         
         
         do {
-            System.out.println("Anna y-koordinaatti");
+            System.out.println("Anna y-koordinaatti väliltä 1-3");
             yKoord = lukija.nextInt();
-        }while(!peli.syoteOikein(yKoord));
+        }while(!peli.syoteOikein(yKoord -1));
         
-        peli.pelaaVuoro(xKoord, yKoord);
+        peli.pelaaVuoro(xKoord -1, yKoord -1);
         tulostaRuudukko();
     }
 }

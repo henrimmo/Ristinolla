@@ -126,5 +126,38 @@ public class PeliTest {
         assertEquals(true, peli.voittajaTarkistus());
     }
     
+    @Test
+    public void voitonLaskuToimii() {
+        peli.aloitaPeli();
+        peli.pelaaVuoro(0, 2);
+        peli.pelaaVuoro(1, 0);
+        peli.pelaaVuoro(1, 1);
+        peli.pelaaVuoro(1, 2);
+        peli.pelaaVuoro(2, 0);
+        peli.loppuukoPeli();
+        
+        assertEquals(1,peli.getVoitot(Ruutu.RISTI));
+        assertEquals(0,peli.getVoitot(Ruutu.NOLLA));
+        assertEquals(0,peli.getVoitot(Ruutu.TYHJA));
+    }
+    
+    @Test
+    public void tasaPeliTarkistusToimii() {
+        peli.aloitaPeli();
+        peli.pelaaVuoro(0, 2);
+        peli.pelaaVuoro(1, 0);
+        peli.pelaaVuoro(1, 2);
+        peli.pelaaVuoro(2, 0);
+        peli.pelaaVuoro(0, 0);
+        peli.pelaaVuoro(2, 2);
+        peli.pelaaVuoro(2, 1);
+        peli.pelaaVuoro(0, 1);
+        peli.pelaaVuoro(1, 1);
+        
+        peli.loppuukoPeli();
+        
+        assertEquals(1,peli.getTasapelit());
+    }
+    
     
 }
