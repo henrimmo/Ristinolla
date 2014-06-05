@@ -8,10 +8,11 @@ package logiikka;
  *
  * @author Henri
  */
-public class Ruudukko {
+public final class Ruudukko {
     
-    private Ruutu[][] ruudut;
-    private int laudanKoko;
+    private final Ruutu[][] ruudut;
+    private final int laudanKoko;
+    private Ruutu voittaja = Ruutu.TYHJA;
     
     public Ruudukko() {
         this.laudanKoko = 3;
@@ -33,19 +34,11 @@ public class Ruudukko {
     }
     
     public void asetaX(int x, int y) {
-        if(kelvollinenSyote(x,y) == true) {
-            if(ruudut[x][y]==Ruutu.TYHJA) {
-                ruudut[x][y]=Ruutu.RISTI;
-            }
-        }
+        ruudut[x][y]=Ruutu.RISTI;
     }
     
     public void aseta0(int x, int y) {
-        if(kelvollinenSyote(x,y) == true) {
-            if(ruudut[x][y]==Ruutu.TYHJA) {
-                ruudut[x][y]=Ruutu.NOLLA;
-            }
-        }
+        ruudut[x][y]=Ruutu.NOLLA;
     }
     
     public Ruutu getRuutu(int x, int y) {
@@ -58,10 +51,7 @@ public class Ruudukko {
     
     public boolean onkoTyhja(int x, int y) {
         if(kelvollinenSyote(x,y)) {
-            if(ruudut[x][y] == Ruutu.TYHJA) {
-                return true;
-            }
-            return false;
+            return ruudut[x][y] == Ruutu.TYHJA;
         }
         return false;
     }
@@ -79,12 +69,15 @@ public class Ruudukko {
     
     public boolean tarkistaVaaka() {
         int merkit = 0;
-        Ruutu ruutu = Ruutu.TYHJA;
+        Ruutu ruutu;
         for(int i = 0; i < getPituus(); i++) {
             for(int j = 0; j < getPituus(); j ++) {
                 ruutu = ruudut[i][j];
-                if(getRuutu(i, j)==ruutu) {
+                if(getRuutu(i, j)==ruutu && getRuutu(i,j) != Ruutu.TYHJA) {
                     merkit ++;
+                    if(merkit == 3) {
+                        voittaja = ruudut[i][j];
+                    }
                 }
             }
             if(merkit == 3) {
@@ -102,8 +95,11 @@ public class Ruudukko {
         for(int i = 0; i < getPituus(); i++) {
             for(int j = 0; j < getPituus(); j ++) {
                 ruutu = ruudut[i][j];
-                if(getRuutu(j, i)==ruutu) {
+                if(getRuutu(j, i)==ruutu && getRuutu(i,j) != Ruutu.TYHJA)  {
                     merkit ++;
+                    if(merkit == 3) {
+                        voittaja = ruudut[i][j];
+                    }
                 }
             }
             if(merkit == 3) {
@@ -116,18 +112,21 @@ public class Ruudukko {
     }
     
     public boolean tarkistaVino() {
-        
-        if(getRuutu(0, 0) == getRuutu(1, 1) && getRuutu(2, 2) ==getRuutu(1, 1)) {
-            return true;
+        if(getRuutu(1,1) != Ruutu.TYHJA) {
+            if(getRuutu(0,0) == getRuutu(1,1) && getRuutu(1,1) == getRuutu(2,2)) {
+                return true;
+            } else 
+                if(getRuutu(2,0) == getRuutu(1,1) && getRuutu(1,1) == getRuutu(0,2)) {
+                    return true;
+                } else {
+                    return false;
+                }
         }
-        
-        if(getRuutu(2, 0) ==getRuutu(1, 1) && getRuutu(1, 1) == getRuutu(2, 0)) {
-            return true;
-        }
-        
         return false;
+    } 
+    public Ruutu getVoittaja() {
+        return voittaja;
     }
-    
 
-    
+  
 }

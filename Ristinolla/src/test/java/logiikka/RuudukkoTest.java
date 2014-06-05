@@ -56,12 +56,7 @@ public class RuudukkoTest {
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(2, 1));
     }
     
-    @Test
-    public void varattuaRuutuaEiVoiVaihtaa() {
-        ruudukko.aseta0(1, 1);
-        ruudukko.asetaX(1, 1);
-        assertEquals(Ruutu.NOLLA,ruudukko.getRuutu(1, 1));
-    }
+
     
     @Test
     public void syoteEiVoiOllaVaarin() {
