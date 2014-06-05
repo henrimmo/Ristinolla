@@ -26,3 +26,11 @@ Pientä viilailua, tekstikäyttöliittymän aloitus
 
 2h
  
+30.5
+Tekstikäyttöliittymän hiomista
+1h
+
+5.6
+Peliluokkaan muutama uusi metodi, lisää testejä, graafisen käyttöliittymän aloitus. Voitontarkistus uusiksi, sekvenssikaaviot.
+
+4-5h
