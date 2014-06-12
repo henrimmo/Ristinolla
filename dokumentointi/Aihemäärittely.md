@@ -16,3 +16,4 @@ Pelaaminen
 Voittaminen
 Uuden pelin aloitus
 Pelin lopetus
+Pistetilastojen katsominen
