@@ -18,7 +18,7 @@ public final class Ruudukko {
     public Ruudukko() {
         this.laudanKoko = 3;
         ruudut = new Ruutu[laudanKoko][laudanKoko];
-        asetaRuudukko();
+        
         
     }
     
@@ -66,10 +66,6 @@ public final class Ruudukko {
     
     public Ruutu getRuutu(int x, int y) {
         return ruudut[x][y];
-    }
-    
-    public int getPituus() {
-        return laudanKoko;
     }
     
     /**

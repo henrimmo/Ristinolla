@@ -23,16 +23,20 @@ public final class Peli {
         xVoitot = 0;
         oVoitot = 0;
         tasaPelit = 0;
-        aloitaPeli();
+        vuoro = Ruutu.RISTI;
         
     }
+    
+    
     
     /**
      * asettaa vuoron ristille
      * 
      */
     
-    public void aloitaPeli() {
+    public void aloitaUusiPeli() {
+        ruudukko.asetaRuudukko();
+        
         vuoro = Ruutu.RISTI;
     }
     
@@ -63,9 +67,11 @@ public final class Peli {
             xVoitot++;
         } else if(ruudukko.getVoittaja() == Ruutu.NOLLA) {
             oVoitot++;
-        } else if(tasaPeliTarkistus()) {
-            tasaPelit++;
         }
+    }
+    
+    public void lisaaTasaPeli() {
+        tasaPelit++;
     }
     
     /**
@@ -157,20 +163,10 @@ public final class Peli {
     public boolean loppuukoPeli() {
         if(voittajaTarkistus() == true) {
             lisaaVoitto();
-            System.out.println(ruudukko.getVoittaja().toString() + " voitti");
-            System.out.println("Tilasto:");
-            System.out.println("X:n voitot: " + getVoitot(Ruutu.RISTI));
-            System.out.println("0:n voitot: " + getVoitot(Ruutu.NOLLA));
-            System.out.println("Tasapelit: " + getTasapelit());
             return true;
         
         } else if(tasaPeliTarkistus()) {
-            lisaaVoitto();
-            System.out.println("Tasapeli");
-            System.out.println("Tilasto:");
-            System.out.println("X:n voitot: " + getVoitot(Ruutu.RISTI));
-            System.out.println("0:n voitot: " + getVoitot(Ruutu.NOLLA));
-            System.out.println("Tasapelit: " + getTasapelit());
+            lisaaTasaPeli();
             return true;
         }
         return false;
@@ -179,5 +175,17 @@ public final class Peli {
     public boolean syoteOikein(int i) {
         return (i < 3 && i >= 0);
         
+    }
+    
+    public Ruutu getVuoro() {
+        return vuoro;
+    }
+    
+    public String getVoittaja() {
+        if(tasaPeliTarkistus()) {
+            return "Tasapeli!";
+        } else {
+            return ruudukko.getVoittaja().toString() + " voitti!";
+        }
     }
 }

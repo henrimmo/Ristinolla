@@ -34,6 +34,7 @@ public class RuudukkoTest {
     @Before
     public void setUp() {
         ruudukko = new Ruudukko();
+        ruudukko.asetaRuudukko();
         
     }
     
@@ -46,6 +47,9 @@ public class RuudukkoTest {
 
         assertEquals(true,ruudukko.onkoTyhja(1, 1));
         assertEquals(true,ruudukko.onkoTyhja(2, 1));
+        assertEquals("_",ruudukko.getRuutu(2, 1).toString());
+        
+        
     }
     
     @Test
@@ -54,6 +58,8 @@ public class RuudukkoTest {
         ruudukko.asetaX(2, 1);
         assertEquals(Ruutu.NOLLA,ruudukko.getRuutu(1, 1));
         assertEquals(Ruutu.RISTI,ruudukko.getRuutu(2, 1));
+        assertEquals("0",ruudukko.getRuutu(1, 1).toString());
+        assertEquals("X",ruudukko.getRuutu(2, 1).toString());
     }
     
 

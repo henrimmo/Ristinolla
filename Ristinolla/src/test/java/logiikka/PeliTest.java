@@ -34,6 +34,7 @@ public class PeliTest {
     public void setUp() {
         ruudukko = new Ruudukko();
         peli = new Peli(ruudukko);
+        peli.aloitaUusiPeli();
     }
     
     @After
@@ -42,7 +43,6 @@ public class PeliTest {
 
     @Test
     public void vuoronVoiPelataJaSeVaihtuuOikein() {
-        peli.aloitaPeli();
         peli.pelaaVuoro(0, 0);
         peli.pelaaVuoro(1, 1);
         peli.pelaaVuoro(2, 1);
@@ -53,7 +53,6 @@ public class PeliTest {
     }
     @Test
     public void vuoroEiVaihduJosMerkkiLaitetaanVarattuunRuutuun() {
-        peli.aloitaPeli();
         peli.pelaaVuoro(0, 0);
         peli.pelaaVuoro(0, 0);
         peli.pelaaVuoro(1, 1);
@@ -64,7 +63,6 @@ public class PeliTest {
     
     @Test
     public void vaakaTarkistusToimii() {
-        peli.aloitaPeli();
         peli.pelaaVuoro(0, 0);
         peli.pelaaVuoro(1, 1);
         peli.pelaaVuoro(1, 0);
@@ -80,7 +78,6 @@ public class PeliTest {
     
     @Test
     public void pystyTarkistusToimii() {
-        peli.aloitaPeli();
         peli.pelaaVuoro(0, 0);
         peli.pelaaVuoro(1, 1);
         peli.pelaaVuoro(0, 1);
@@ -96,7 +93,6 @@ public class PeliTest {
     
     @Test
     public void vinoTarkistusToimii1() {
-        peli.aloitaPeli();
         peli.pelaaVuoro(0, 0);
         peli.pelaaVuoro(1, 0);
         peli.pelaaVuoro(1, 1);
@@ -112,7 +108,6 @@ public class PeliTest {
     
     @Test
     public void vinoTarkistusToimii2() {
-        peli.aloitaPeli();
         peli.pelaaVuoro(0, 2);
         peli.pelaaVuoro(1, 0);
         peli.pelaaVuoro(1, 1);
@@ -127,8 +122,7 @@ public class PeliTest {
     }
     
     @Test
-    public void voitonLaskuToimii() {
-        peli.aloitaPeli();
+    public void voitonLaskuToimiiRisti() {
         peli.pelaaVuoro(0, 2);
         peli.pelaaVuoro(1, 0);
         peli.pelaaVuoro(1, 1);
@@ -142,8 +136,20 @@ public class PeliTest {
     }
     
     @Test
+    public void voitonLaskuToimiiNolla() {
+        peli.pelaaVuoro(0, 0);
+        peli.pelaaVuoro(0, 2);
+        peli.pelaaVuoro(1, 0);
+        peli.pelaaVuoro(1, 1);
+        peli.pelaaVuoro(1, 2);
+        peli.pelaaVuoro(2, 0);
+        peli.loppuukoPeli();
+        
+        assertEquals(1,peli.getVoitot(Ruutu.NOLLA));
+    }
+    
+    @Test
     public void tasaPeliTarkistusToimii() {
-        peli.aloitaPeli();
         peli.pelaaVuoro(0, 2);
         peli.pelaaVuoro(1, 0);
         peli.pelaaVuoro(1, 2);
