@@ -34,3 +34,20 @@ Tekstikäyttöliittymän hiomista
 Peliluokkaan muutama uusi metodi, lisää testejä, graafisen käyttöliittymän aloitus. Voitontarkistus uusiksi, sekvenssikaaviot.
 
 4-5h
+
+12.6
+GUI luokka, pieniä viilauksia logiikaan. Uudet sekvenssikaaviot.
+
+4h
+
+
+19.6
+Voittotilastot GUI:hin, tallentaminen ja lataaminen.
+5h
+
+21.6
+Joitakin testejä, dokumentaation viimeistelyä, loppupalautus.
+3h
+
+
+

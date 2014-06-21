@@ -16,3 +16,13 @@ Pelaaminen
 Voittaminen
 Uuden pelin aloitus
 Pelin lopetus
+Pistetilastojen katsominen
+Tallentaminen
+Lataaminen
+
+
+
+
+Ohjelma alkaa kun kutsutaan käyttöliittymän run metodia, joka luo ikkunan ja kutsuu puolestaan luoKomponentit metodia.
+Tämä luo ikkunaan 3x3 JButtonesita koostuvan ruudukon, menupalkin ja alas vuoronilmoittajan. Peli on valmis alkamaan.
+Nappeja painellessa niihin ilmestyy vuorosta riippuen joko X tai 0. Jokaisen vuoron päätteeksi peli tarkistaa täyttyikö voittoehto. Mikäli ehto täytyy, ilmestyy näytölle ilmoitus jossa kysytään halutaanko aloittaa uusi peli tai lopettaa.
