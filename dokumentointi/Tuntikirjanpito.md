@@ -40,3 +40,14 @@ GUI luokka, pieniä viilauksia logiikaan. Uudet sekvenssikaaviot.
 
 4h
 
+
+19.6
+Voittotilastot GUI:hin, tallentaminen ja lataaminen.
+5h
+
+21.6
+Joitakin testejä, dokumentaation viimeistelyä, loppupalautus.
+3h
+
+
+
