@@ -33,7 +33,7 @@ public final class Ruudukko {
             }
         }
     }
-    
+      
     /**
      * Tarkistaa onko annettu syöte ruudukon sisällä.
      * 
@@ -63,6 +63,19 @@ public final class Ruudukko {
     public void aseta0(int x, int y) {
         ruudut[x][y]=Ruutu.NOLLA;
     }
+    
+    /**
+     * Asettaa x- ja y-koordinaateissa sijaitsevan ruudun tilaksi tyhjä.
+     * 
+     * @param x
+     * @param y 
+     */
+    
+    public void asetaTyhja(int x, int y) {
+        ruudut[x][y]=Ruutu.TYHJA;
+    }
+    
+    
     
     public Ruutu getRuutu(int x, int y) {
         return ruudut[x][y];
@@ -159,9 +172,26 @@ public final class Ruudukko {
         }
         return false;
     } 
+    
+    
     public Ruutu getVoittaja() {
         return voittaja;
     }
-
-  
+    
+    /**
+     * Tallentaja luokka käyttää kyseistä metodia ruudukon tallentamiseen tekstitiedostoon.
+     * 
+     * @return 
+     */
+    
+    @Override
+    public String toString() {
+        String merkit = "";
+        for (int x=0; x < 3; ++x) {
+            for (int y=0; y < 3; ++y) {
+                merkit += this.ruudut[x][y];
+            }
+        }
+        return merkit;
+    }   
 }

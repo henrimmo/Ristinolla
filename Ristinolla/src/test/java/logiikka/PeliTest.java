@@ -166,4 +166,27 @@ public class PeliTest {
     }
     
     
+    @Test
+    public void syoteTarkistusToimii() {
+        assertFalse(peli.syoteOikein(4));
+        assertTrue(peli.syoteOikein(2));
+    }
+    
+    @Test
+    public void voittajaTarkistusToimii() {
+        assertEquals("_ voitti!",peli.getVoittaja());
+        
+        peli.pelaaVuoro(0, 2);
+        peli.pelaaVuoro(1, 0);
+        peli.pelaaVuoro(1, 2);
+        peli.pelaaVuoro(2, 0);
+        peli.pelaaVuoro(0, 0);
+        peli.pelaaVuoro(2, 2);
+        peli.pelaaVuoro(2, 1);
+        peli.pelaaVuoro(0, 1);
+        peli.pelaaVuoro(1, 1);
+        
+        assertEquals("Tasapeli!", peli.getVoittaja());
+    }
+    
 }

@@ -4,6 +4,8 @@
  */
 package logiikka;
 
+import java.io.FileNotFoundException;
+
 /**
  *Sisältää ristinollan pelaamiseen tarvittavia metodeja.
  * 
@@ -12,11 +14,12 @@ package logiikka;
 public final class Peli {
     
     
-    private final Ruudukko ruudukko;
+    private Ruudukko ruudukko;
     private Ruutu vuoro;
     private int xVoitot;
     private int oVoitot;
     private int tasaPelit;
+    private Tallentaja tallentaja;
     
     public Peli(Ruudukko ruudukko) {
         this.ruudukko = ruudukko;
@@ -24,13 +27,14 @@ public final class Peli {
         oVoitot = 0;
         tasaPelit = 0;
         vuoro = Ruutu.RISTI;
+        this.tallentaja = new Tallentaja();
         
     }
     
     
     
     /**
-     * asettaa vuoron ristille
+     * Asettaa tyhjän ruudukon ja vuoron ristille.
      * 
      */
     
@@ -40,6 +44,13 @@ public final class Peli {
         vuoro = Ruutu.RISTI;
     }
     
+    
+    /**
+     * Palauttaa halutun pelaajan voittojen lukumäärän.
+     * 
+     * @param pelaaja
+     * @return voittojen lukumäärä
+     */
     
     public int getVoitot(Ruutu pelaaja) {
         int voitot = 0;
@@ -69,6 +80,11 @@ public final class Peli {
             oVoitot++;
         }
     }
+    
+    /**
+     * Lisää tasapelin voittotilastoon.
+     * 
+     */
     
     public void lisaaTasaPeli() {
         tasaPelit++;
@@ -124,6 +140,14 @@ public final class Peli {
         return false;
     }
     
+    /**
+     * Tulostaa halutuissa koordinaateissa olevan ruudun merkin.
+     * 
+     * @param x
+     * @param y
+     * @return X jos ruutu on risti, 0 jos ruutu on nolla, _ jos ruutu on tyhjä
+     */
+    
     public String tulostaRuutu(int x, int y) {
         return ruudukko.getRuutu(x, y).toString();
     }
@@ -172,6 +196,13 @@ public final class Peli {
         return false;
     }
     
+    /**
+     * Tarkistaa onko annettu syöte ruudukon rajojen sisällä
+     * 
+     * @param i
+     * @return  true jos on, false jos ei
+     */
+    
     public boolean syoteOikein(int i) {
         return (i < 3 && i >= 0);
         
@@ -181,6 +212,16 @@ public final class Peli {
         return vuoro;
     }
     
+    public Ruutu getRuutu(int x,int y) {
+        return ruudukko.getRuutu(x, y);
+    }
+    
+    /**
+     * Palauttaa merkkijonona voittajan tai tasapelin
+     * 
+     * @return Tasapeli! jos tasapeli, X voitti! tai 0 voitti!
+     */
+    
     public String getVoittaja() {
         if(tasaPeliTarkistus()) {
             return "Tasapeli!";
@@ -188,4 +229,32 @@ public final class Peli {
             return ruudukko.getVoittaja().toString() + " voitti!";
         }
     }
+    
+    /**
+     * Tallentaa ruudukon ja vuoron.
+     * 
+     * @throws Exception 
+     */
+    
+    public void tallenna() throws Exception {
+        tallentaja.tallennaPeli(ruudukko);
+        tallentaja.tallennaVuoro(this);
+
+    }
+    
+    
+    /**
+     * Lataa ruudukon ja vuoron.
+     * 
+     * @throws FileNotFoundException 
+     */
+    
+    public void lataa() throws FileNotFoundException {
+        this.ruudukko = tallentaja.lataaPeli();
+        this.vuoro = tallentaja.lataaVuoro();
+        
+        
+        
+    } 
+    
 }

@@ -1,0 +1,4 @@
+Risti aloittaa. Klikkailkaa ruudukkoa vuorotellen kunnes peli p‰‰ttyy tasapeliin tai jompi kumpi voittaa.
+
+Menusta mahdollista aloittaa uusi peli, tallentaa k‰ynniss‰ oleva peli, ladata tallennettu peli, 
+katsoa t‰m‰nhetkisen pelikerran pistetilastoa ja lopettaa peli.

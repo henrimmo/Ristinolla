@@ -10,6 +10,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,12 +35,14 @@ import logiikka.Ruutu;
 public class GUI implements Runnable{
     private JFrame gui;
     private Peli peli;
+    private Ruudukko ruudukko;
     private JButton[][] ruudut;
     private JPanel pelilauta;
     private JLabel vuoro;
     
     public GUI() {
-        this.peli = new Peli(new Ruudukko());
+        this.ruudukko = new Ruudukko();
+        this.peli = new Peli(ruudukko);
     }
 
     /**
@@ -61,7 +65,7 @@ public class GUI implements Runnable{
     }
     
     /**
-     * Luo painikkeet jotka edustavat ruudukkoa sekä menu palkin josta voidaan aloittaa uusi peli tai lopettaa pelaaminen.
+     * Luo painikkeet jotka edustavat ruudukkoa sekä menu palkin josta voidaan aloittaa uusi peli tai lopettaa pelaaminen, näyttää tilastot sekä ladata ja tallentaa pelin.
      * 
      * @param container 
      */    
@@ -76,12 +80,40 @@ public class GUI implements Runnable{
         
         JMenuItem uusiPeli = new JMenuItem("Uusi peli");
         uusiPeli.setActionCommand("UUSI");
-        uusiPeli.addActionListener(new Kuuntelija(this, this.peli));
+        uusiPeli.addActionListener(new Kuuntelija(this, this.peli, this.ruudukko));
         menu.add(uusiPeli);
+        
+        
+        JMenuItem tallennaPeli = new JMenuItem("Tallenna peli");
+        tallennaPeli.setActionCommand("TALLENNA");
+        tallennaPeli.addActionListener(new Kuuntelija(this, this.peli,this.ruudukko) {
+             @Override
+                        public void actionPerformed(ActionEvent e) {
+                try {
+                    JOptionPane.showMessageDialog(null, "Peli tallennettu.");
+                    peli.tallenna();
+                    
+                } catch (Exception ex) {
+                    
+                }
+             }});
+        
+        menu.add(tallennaPeli);
+        
+        JMenuItem lataaPeli = new JMenuItem("Lataa peli");
+        lataaPeli.setActionCommand("LATAA");
+        lataaPeli.addActionListener(new Kuuntelija(this, this.peli,this.ruudukko));
+        menu.add(lataaPeli);
+        
+        JMenuItem tilasto = new JMenuItem("Tilasto");
+        tilasto.setActionCommand("TILASTO");
+        tilasto.addActionListener(new Kuuntelija(this, this.peli,this.ruudukko));
+        menu.add(tilasto);
+        
         
         JMenuItem lopeta = new JMenuItem("Lopeta peli");
         lopeta.setActionCommand("LOPETA");
-        lopeta.addActionListener(new Kuuntelija(this, this.peli));
+        lopeta.addActionListener(new Kuuntelija(this, this.peli,this.ruudukko));
         menu.add(lopeta);
         
         
@@ -95,7 +127,7 @@ public class GUI implements Runnable{
             for (int j = 0; j < 3; j++) {
                 ruudut[i][j] = new JButton();
                 pelilauta.add(ruudut[i][j]);
-                ruudut[i][j].addActionListener(new Kuuntelija(this, this.peli,i,j));
+                ruudut[i][j].addActionListener(new Kuuntelija(this, this.peli,this.ruudukko,i,j));
                 ruudut[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
                 ruudut[i][j].setFont(new Font("Font", Font.BOLD, 200));  
             }  
@@ -135,6 +167,44 @@ public class GUI implements Runnable{
             peli.aloitaUusiPeli();
         }
     }
+       
+    /**
+     * Lataa tallennetun pelin ja muuttaa ruudukon ja vuoron sen mukaisiksi.
+     * 
+     * @throws FileNotFoundException 
+     */
+    public void lataus() throws FileNotFoundException {
+        peli.lataa();
+        this.gui.repaint();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if(peli.getRuutu(i, j).equals(Ruutu.RISTI)) {
+                    ruudut[i][j].setText("X");
+                    ruudut[i][j].setBackground(Color.WHITE);
+                    ruudut[i][j].setEnabled(false);
+                } else if(peli.getRuutu(i, j).equals(Ruutu.NOLLA)) {
+                    ruudut[i][j].setText("0");
+                    ruudut[i][j].setBackground(Color.WHITE);
+                    ruudut[i][j].setEnabled(false);
+                } else {
+                    ruudut[i][j].setText("");
+                    ruudut[i][j].setBackground(Color.WHITE);
+                    ruudut[i][j].setEnabled(true); 
+                }
+                
+                
+                
+            }
+        }
+        if (peli.getVuoro().equals(Ruutu.RISTI)) {
+            this.vuoro.setText("X:n vuoro");
+        } else {
+            this.vuoro.setText("0:n vuoro");
+        }
+        
+        
+        
+    }
     
     /**
      * Asettaa ruutuun vuorosta riippuen joko x tai 0
@@ -154,7 +224,7 @@ public class GUI implements Runnable{
      */
     
     public void paivita() {
-        for (int i = 0; i < ruudut.length; i++) {
+        for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (peli.tulostaRuutu(i, j).equals("X") || peli.tulostaRuutu(i, j).equals("0")) {
                     muutaRuutu(ruudut[i][j], peli.tulostaRuutu(i, j));
@@ -176,7 +246,7 @@ public class GUI implements Runnable{
      */
     
     public boolean jatkuuko() {
-        int valinta = JOptionPane.showConfirmDialog(null, "Haluatko jatkaa pelaamista?", "" + peli.getVoittaja(),
+        int valinta = JOptionPane.showConfirmDialog(null, "Uusi peli?", "" + peli.getVoittaja(),
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (valinta == JOptionPane.YES_OPTION) {
             return true;
@@ -185,6 +255,15 @@ public class GUI implements Runnable{
         }
         
         return false;
+    }
+    
+    /**
+     * Näyttää tilastoikkunan.
+     * 
+     */
+    public void tilasto() {
+        JOptionPane.showMessageDialog(null, "Ristin voitot: " + peli.getVoitot(Ruutu.RISTI) + 
+                "\n Nollan voitot: " + peli.getVoitot(Ruutu.NOLLA) + "\n Tasapelit: " + peli.getTasapelit());
     }
 }    
 
